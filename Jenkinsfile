@@ -10,7 +10,6 @@ pipeline{
         sh 'echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list'
         sh 'sudo apt update'
         sh 'sudo apt-get install terraform'
-'
      }
     }
   
