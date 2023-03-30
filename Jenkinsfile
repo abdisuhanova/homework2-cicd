@@ -27,8 +27,19 @@ pipeline{
     }
     stage('terraform apply') {
     steps {
-        withCredentials([aws(accessKeyVariable:'AWS_ACCESS_KEY_ID', credentialsId: 'aws', secretKeyVarible: 'AWS_SECRET_ACCESS_KEY')]) {
-        sh 'terraform apply -auto-approve '
+        def userInput = false
+            script {
+                def userInput = input(id: 'Proceed1', message: 'Promote build?', parameters: [[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']])
+                echo 'userInput: ' + userInput
+
+            if(userInput == true) {
+                // do action
+                withCredentials([aws(accessKeyVariable:'AWS_ACCESS_KEY_ID', credentialsId: 'aws', secretKeyVarible: 'AWS_SECRET_ACCESS_KEY')]) {
+                sh 'terraform apply -auto-approve '
+            } else {
+                // not do action
+                echo "Action was aborted."
+            }
         }
     }
     }
