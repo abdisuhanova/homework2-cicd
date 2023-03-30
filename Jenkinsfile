@@ -27,6 +27,7 @@ pipeline{
     }
     stage('terraform apply') {
     steps {
+      input message: 'Do you want to apply?', ok: 'Yes'
             script {
                 def userInput = input(id: 'Proceed1', message: 'Promote build?', parameters: [[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']])
                 echo 'userInput: ' + userInput
