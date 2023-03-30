@@ -36,6 +36,7 @@ pipeline{
                 // do action
                 withCredentials([aws(accessKeyVariable:'AWS_ACCESS_KEY_ID', credentialsId: 'aws', secretKeyVarible: 'AWS_SECRET_ACCESS_KEY')]) {
                 sh 'terraform apply -auto-approve '
+                }
             } else {
                 // not do action
                 echo "Action was aborted."
